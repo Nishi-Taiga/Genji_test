@@ -1142,6 +1142,13 @@
             const total = currentTest.questions.length;
             const current = currentTest.currentIndex + 1;
 
+            // クイズモードの回答ボタンをリセット
+            const submitBtn = document.getElementById('submit-answer');
+            if (submitBtn) {
+                submitBtn.textContent = '回答する';
+                submitBtn.onclick = submitQuizAnswer;
+            }
+
             document.getElementById('question-number').textContent = `問題 ${current}/${total}`;
             document.getElementById('volume-name').textContent = question.volumeName;
             // 原文をリンク付きで表示
@@ -1309,6 +1316,7 @@
             // 正解の現代語訳
             const correctAnswer = correctQuestion.translation;
             const choices = [correctAnswer];
+            const usedTexts = new Set([correctAnswer]); // 重複チェック用
 
             // すべての候補から正解以外を抽出
             const candidates = allData.filter(q =>
@@ -1334,23 +1342,31 @@
                 return a.lengthDiff - b.lengthDiff;
             });
 
-            // 上位3つを選択肢として追加
-            for (let i = 0; i < 3 && i < scoredCandidates.length; i++) {
-                choices.push(scoredCandidates[i].translation);
+            // 上位3つを選択肢として追加（重複チェック）
+            for (let i = 0; i < scoredCandidates.length && choices.length < 4; i++) {
+                const translation = scoredCandidates[i].translation;
+                if (!usedTexts.has(translation)) {
+                    choices.push(translation);
+                    usedTexts.add(translation);
+                }
             }
 
             // 選択肢が4つに満たない場合はランダムに追加
             if (choices.length < 4) {
                 const remaining = allData.filter(q =>
                     q.translation &&
-                    !choices.includes(q.translation) &&
+                    !usedTexts.has(q.translation) &&
                     q.translation.length > 10
                 );
 
                 shuffleArray(remaining);
 
                 while (choices.length < 4 && remaining.length > 0) {
-                    choices.push(remaining.shift().translation);
+                    const translation = remaining.shift().translation;
+                    if (!usedTexts.has(translation)) {
+                        choices.push(translation);
+                        usedTexts.add(translation);
+                    }
                 }
             }
 
@@ -1397,6 +1413,12 @@
                 return;
             }
 
+            // すでに回答済みの場合は何もしない
+            const submitBtn = document.getElementById('submit-answer');
+            if (submitBtn.textContent === '次の問題へ') {
+                return;
+            }
+
             const question = currentTest.questions[currentTest.currentIndex];
             const correct = selectedChoice === question.translation;
             const questionId = allData.indexOf(question);
@@ -1439,8 +1461,8 @@
             localStorage.setItem('genjiTestHistory', JSON.stringify(history));
 
             // 次の問題へボタンを表示
-            document.getElementById('submit-answer').textContent = '次の問題へ';
-            document.getElementById('submit-answer').onclick = nextQuestion;
+            submitBtn.textContent = '次の問題へ';
+            submitBtn.onclick = nextQuestion;
         }
 
         // 紙吹雪演出
