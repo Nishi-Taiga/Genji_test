@@ -1155,35 +1155,33 @@
             document.getElementById('original-text').innerHTML = createOriginalWithLinks(question.original, question.links);
             document.getElementById('progress-fill').style.width = `${(current / total) * 100}%`;
 
-            // 前後の文脈を取得して表示（フラッシュカードモードの場合）
+            // 前後の文脈を取得して表示
+            const context = getContextSentences(question);
+
+            // 前の文（原文）
+            const contextBefore = document.getElementById('context-before');
+            if (context.before) {
+                contextBefore.textContent = `（前の文）${context.before.original}`;
+                contextBefore.style.display = 'block';
+            } else {
+                contextBefore.style.display = 'none';
+            }
+
+            // 次の文（原文）
+            const contextAfter = document.getElementById('context-after');
+            if (context.after) {
+                contextAfter.textContent = `（次の文）${context.after.original}`;
+                contextAfter.style.display = 'block';
+            } else {
+                contextAfter.style.display = 'none';
+            }
+
+            // モード別の制御を表示
             if (currentTest.mode === 'flashcard') {
-                const context = getContextSentences(question);
-
-                // 前の文（原文）
-                const contextBefore = document.getElementById('context-before');
-                if (context.before) {
-                    contextBefore.textContent = `（前の文）${context.before.original}`;
-                    contextBefore.style.display = 'block';
-                } else {
-                    contextBefore.style.display = 'none';
-                }
-
-                // 次の文（原文）
-                const contextAfter = document.getElementById('context-after');
-                if (context.after) {
-                    contextAfter.textContent = `（次の文）${context.after.original}`;
-                    contextAfter.style.display = 'block';
-                } else {
-                    contextAfter.style.display = 'none';
-                }
-
                 document.getElementById('flashcard-controls').classList.remove('hidden');
                 document.getElementById('quiz-controls').classList.add('hidden');
                 document.getElementById('answer-section').classList.add('hidden');
             } else {
-                // クイズモードでは文脈を非表示
-                document.getElementById('context-before').style.display = 'none';
-                document.getElementById('context-after').style.display = 'none';
                 document.getElementById('flashcard-controls').classList.add('hidden');
                 document.getElementById('quiz-controls').classList.remove('hidden');
                 setupQuizChoices(question);
