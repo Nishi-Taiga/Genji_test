@@ -45,20 +45,36 @@
             opacity: 0.9;
         }
 
-        .feedback-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 13px;
-            transition: background 0.3s;
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
         }
 
-        .feedback-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .footer-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer p {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
         }
 
         .content {
@@ -591,7 +607,6 @@
         <div class="header">
             <h1>源氏物語 現代語訳テスト</h1>
             <p>古文の理解を深めよう</p>
-            <a href="https://github.com/Nishi-Taiga/Genji_test/issues/new/choose" target="_blank" class="feedback-link">📝 問題報告・フィードバック</a>
         </div>
 
         <div class="content">
@@ -768,6 +783,12 @@
                 読み込み中...
             </div>
         </div>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+        <a href="https://github.com/Nishi-Taiga/Genji_test/issues/new/choose" target="_blank" class="footer-link">📝 問題報告・フィードバック</a>
+        <p>バグ報告、機能要望、質問などお気軽にどうぞ</p>
     </div>
 
     <script>
