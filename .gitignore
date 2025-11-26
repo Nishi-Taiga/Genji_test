@@ -1,0 +1,23 @@
+# Other project directories
+カリキュラム/
+シフト/
+シフト作成自動化/
+共有用フォルダ_西/
+時間割/
+練習問題/
+
+# Excel files
+*.xlsx
+*.xlsm
+
+# Text files
+生徒配布用カレンダー作成.txt
+
+# Build artifacts
+nul
+
+# IDE
+.claude/
+
+# Old files
+old/
