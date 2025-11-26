@@ -52,6 +52,14 @@
 
 http://james.3zoku.com/genji/index.html
 
+## フィードバック・問題報告
+
+バグ報告、機能要望、質問などは [Issues](https://github.com/Nishi-Taiga/Genji_test/issues/new/choose) からお願いします。
+
+- 🐛 [バグ報告](https://github.com/Nishi-Taiga/Genji_test/issues/new?template=bug_report.md)
+- ✨ [機能要望](https://github.com/Nishi-Taiga/Genji_test/issues/new?template=feature_request.md)
+- ❓ [質問](https://github.com/Nishi-Taiga/Genji_test/issues/new?template=question.md)
+
 ## ライセンス
 
 学習目的での使用を前提としています。
